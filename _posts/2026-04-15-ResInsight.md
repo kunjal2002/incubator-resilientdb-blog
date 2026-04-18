@@ -1,7 +1,7 @@
 ---
 title: "ResInsight: AI-Driven Developer Onboarding for ResilientDB"
 author: "Kunjal Agrawal"
-date: "2024-12-15"
+date: "2026-04-15"
 category: "Developer Tools"
 tags: ["AI", "MCP", "Developer Experience", "ResilientDB", "Onboarding"]
 ---
