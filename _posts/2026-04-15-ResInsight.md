@@ -9,7 +9,7 @@ tags: ["AI", "MCP", "Developer Experience", "ResilientDB", "Onboarding"]
 # ResInsight: AI-Driven Developer Onboarding for ResilientDB
 
 **Author:** Kunjal Agrawal  
-**Date:** March 2026  
+**Date:** April 15, 2026  
 
 ---
 
@@ -370,7 +370,7 @@ This project was inspired by the collaborative spirit of the ExpoLab community. 
 
 - Fellow ECS 265 students who helped me clearly understand what issues they faced when they took ECS 265 and when they started working with ResilientDB.
 - ExpoLab team for supporting this work
-- Professor Mohammad Sadoghi for his guidance througout the project.
+- Professor Mohammad Sadoghi for his guidance throughout the project.
 
 ---
 
