@@ -314,6 +314,106 @@ Security is built into every layer:
 
 ---
 
+## How to Use ResInsight
+
+ResInsight can be used in two ways: connect to the hosted ResilientDB deployment, or run your own local copy if you want to self-host or modify the server.
+
+### Option 1: Use the hosted ResilientDB deployment
+
+If you only want to use ResInsight, you do not need to clone the repository. Point your MCP client at the hosted HTTP endpoint:
+
+`http://52.45.172.212:8005/mcp`
+
+Important details:
+- Use the `/mcp` endpoint directly.
+- The server is running in Docker as `resinsight` with port mapping `8005:8005`.
+- Use an MCP client that supports HTTP transport, such as Cursor or Claude Desktop.
+- Add the Bearer token issued by the lab to your client configuration.
+- Do not rely on `/` or `/mcp/tools`; those paths are not the supported client entry point.
+
+### Option 2: Run it locally
+
+If you want to run your own instance, clone the repository and start the MCP server locally:
+
+1. Clone the repo and move into the ResInsight directory.
+2. Create and activate a Python virtual environment.
+3. Install dependencies from `requirements.txt`.
+4. Create a `.env` file with your `GITHUB_TOKEN` and a locally chosen `MCP_TOKEN`.
+5. Start the server with `python server.py`, or build and run the Docker image if you prefer containers.
+
+For local use, your MCP client should send the same `MCP_TOKEN` value that the server reads from `.env`. For cloud use, the client must send the Expo Lab team-issued token for the hosted endpoint.
+
+### MCP client configuration
+Now, to configure an MCP client use one of the following two options depending on the option that you chose above to run the application:
+
+1. Use command-based MCP configuration only when you are running ResInsight locally (self-hosted):
+
+    ```json
+    {
+        "mcpServers": {
+            "resinsight": {
+                "command": "python",
+                "args": ["C:/path/to/incubator-resilientdb/ecosystem/ai-tools/mcp/ResInsight/server.py"],
+                "env": {
+                    "GITHUB_TOKEN": "ghp_...",
+                    "MCP_TOKEN": "your_local_secret_or_team_issued_token"
+                }
+            }
+        }
+    }
+    ```
+
+In this `python + server.py` setup, do not place the `/mcp` URL inside `args`. The `args` field is only the local script path.
+
+### HTTP transport clients like Claude
+
+2. If your application supports native remote HTTP MCP entries, configure the deployed endpoint like this:
+
+    ```json
+    {
+        "url": "http://52.45.172.212:8005/mcp",
+        "headers": {
+            "Authorization": "Bearer MCP_TOKEN"
+        }
+    }
+    ```
+
+    For Claude use:
+
+    ```json
+    {
+        "mcpServers": {
+            "ResInsight: AI-driven developer onboarding ecosystem": {
+                "command": "npx",
+                "args": [
+                    "-y",
+                    "mcp-remote",
+                    "http://52.45.172.212:8005/mcp",
+                    "--header",
+                    "Authorization: Bearer MCP_TOKEN"
+                ],
+                "env": {
+                    "MCP_REMOTE_CONFIG_DIR": "C:/Users/your-user/.mcp-auth"
+                }
+            }
+        }
+    }
+    ```
+
+        `MCP_REMOTE_CONFIG_DIR` is optional. Keep it only if you want to control where bridge auth/session files are stored.
+
+Important: keep a space after `Bearer` in the header value (`Authorization: Bearer ...`).
+
+The direct Claude local setup (`python + server.py`) remains the preferred self-hosted option. The deployed endpoint should be configured with the `/mcp` URL in the remote HTTP settings (or bridge argument), not in Python script args.
+
+For local self-hosted runs, replace the hosted URL with `http://localhost:8005/mcp` and use the token from your own `.env` file.
+
+```
+Note: command + args appears in both modes. For local mode, command launches `python server.py`. For deployed mode in some clients, command launches an HTTP bridge tool (such as `mcp-remote`) that forwards to the `/mcp` URL.
+```
+
+---
+
 ## Measuring Success
 
 The real measure of ResInsight's impact isn't in technical metrics, it's in changed developer experiences:
@@ -352,11 +452,11 @@ By handling these mechanical tasks, ResInsight lets developers focus on what mat
 
 ---
 
-## Getting Involved
+## Getting Involved/Contact
 
 ResInsight is open source and available to the ResilientDB community. If you're a student taking ECS 265, a lab member working on ResilientDB projects, or a researcher exploring the platform, you can start using ResInsight today.
 
-For access, contact kunjalagrawal2002@gmail.com or Prof. Sadoghi at msadoghi@expolab.org.
+For access, contact kunjalagrawal2002@gmail.com or Prof. Sadoghi at msadoghi@expolab.org / msadoghi@ucdavis.edu.
 
 The code is available at: [ResInsight](https://github.com/apache/incubator-resilientdb/tree/master/ecosystem/ai-tools/mcp/ResInsight)
 
