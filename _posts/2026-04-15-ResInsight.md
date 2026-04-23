@@ -6,8 +6,6 @@ category: "Developer Tools"
 tags: ["AI", "MCP", "Developer Experience", "ResilientDB", "Onboarding"]
 ---
 
-# ResInsight: AI-Driven Developer Onboarding for ResilientDB
-
 **Author:** Kunjal Agrawal  
 **Date:** April 15, 2026  
 
